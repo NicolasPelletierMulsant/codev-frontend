@@ -33,17 +33,25 @@ export function Sidebar(props) {
           boxSizing: 'border-box',
         },
       }}>
-        <Link href="/">
-            <Box sx={{
-                display: "flex", 
-                alignItems: "center",
-                justifyContent: "center",
-                padding: "10px"
-                }}>
-                <img src="./img/site_logo.png" alt="logo" width="42px" height="42px"/>
-                <Typography variant="h5" sx={{ marginLeft: "10px" }}>Codev</Typography>
-            </Box>
-        </Link>
+        <Box sx={{
+            cursor: "pointer",
+            '&:hover': {
+                boxShadow: "inset 0 0 20px 20px rgba(255, 255, 255, 0.1)",
+                transition: "box-shadow 0.2s ease-in-out",
+            }
+        }}>
+            <Link href="/">
+                <Box sx={{
+                    display: "flex", 
+                    alignItems: "center",
+                    justifyContent: "center",
+                    padding: "10px"
+                    }}>
+                    <img src="./img/site_logo.png" alt="logo" width="42px" height="42px"/>
+                    <Typography variant="h5" sx={{ marginLeft: "10px" }}>Codev</Typography>
+                </Box>
+            </Link>
+        </Box>
         
         <Divider />
 
