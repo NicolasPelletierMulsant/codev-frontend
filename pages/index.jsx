@@ -1,30 +1,21 @@
-import Head from 'next/head'
-import Navbar from "../components/Navbar.jsx"
+import Layout from '../components/Layout.jsx'
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 
 export default function Home() {
   return (
+    <Layout pageName="Accueil">
+      <Typography>
+      Welcome to Codev!
+      </Typography>
 
-    <div className="container">
-      <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-        <link rel="stylesheet" href="index.css" />
-      </Head>
+      <h1 className="title">
+      Welcome to <a href="https://nextjs.org">Next.js!</a>
+      </h1>
 
-      <Navbar>
-      </Navbar>
-
-      <main>
-        
-        <h1 className="title">
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
-
-        <p className="description">
-          Get started by editing <code>pages/index.js</code>
-        </p>
-
-      </main>
-    </div>
+      <p className="description">
+      Get started by editing <code>pages/index.js</code>
+      </p>
+    </Layout>
   )
 }
