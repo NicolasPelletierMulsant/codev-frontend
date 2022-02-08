@@ -6,10 +6,16 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
+import Cookies from 'universal-cookie';
+
+const logout = () => {
+    const cookies = new Cookies();
+    cookies.remove('connected');
+}
 
 const AvatarMenuOptions = [
     { text: "Profile", link: "#" },
-    { text: "Se déconnecter", link: "#" },
+    { text: "Se déconnecter", link: '/', onClick: logout },
 ];
 
 export default function AvatarMenu(props) {
@@ -28,7 +34,7 @@ export default function AvatarMenu(props) {
                     return (
                         <MenuItem key={option.text}>
                             <Typography textAlign="center">
-                                <Link href={option.link} sx={{ textDecoration: "none" }} variant="inherit">
+                                <Link href={option.link} sx={{ textDecoration: "none" }} variant="inherit" onClick={option.onClick}>
                                     {option.text}
                                 </Link>
                             </Typography>
