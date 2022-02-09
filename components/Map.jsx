@@ -1,7 +1,9 @@
 import * as React from 'react'
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
+import { MapContainer, TileLayer, Marker, Popup, Tooltip } from 'react-leaflet'
 import Cookies from 'universal-cookie'
 import * as L from "leaflet"
+import Legend from './Legend'
+import Router from 'next/router';
 
 const getBatimentsData = async (batiments) => {
     const cookies = new Cookies();
@@ -67,32 +69,40 @@ const iconsColorMap = Object.keys(energyClassToColor).reduce((acc, energyClass) 
     return acc;
 }, {});
 
-console.log(iconsColorMap);
-
 export default function Map() {
 
-    console.log("Rendering");
-
     const [batimentsData, setBatimentsData] = React.useState(null);
+    const [map, setMap] = React.useState(null);
 
     React.useEffect(async () => {
         const data = await getBatimentsData();
         setBatimentsData(data);
     }, []);
 
+    const onMarkerClick = (event, batimentId) => {
+        Router.push({
+            pathname: '/batiment/[id]',
+            query: { id: batimentId }
+        });
+    };
+
     return (
-        <MapContainer center={[48.52, 2.19]} zoom={5} style={{ height: "100%", width: "90%" }}>
+        <MapContainer center={[48.52, 2.19]} zoom={5} style={{ height: "100%", width: "90%" }} whenCreated={setMap}>
             <TileLayer
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
-            {batimentsData && batimentsData.slice(0, 50).map((batiment, index) => (
-                <Marker key={index} position={[batiment.latitude, batiment.longitude]} icon={iconsColorMap[batiment.classe_consommation_energie]}>
-                    <Popup>
-                        {batiment.classe_consommation_energie}
-                    </Popup>
+            {batimentsData && batimentsData.slice(0, 60).map((batiment, index) => (
+                <Marker key={index} position={[batiment.latitude, batiment.longitude]} icon={iconsColorMap[batiment.classe_consommation_energie]}
+                    eventHandlers={{
+                        click: event => onMarkerClick(event, batiment.id)
+                    }}>
+                    <Tooltip>
+                        {batiment.geo_adresse}
+                    </Tooltip>
                 </Marker>
             ))}
+            <Legend map={map} data={energyClassToColor} />
         </MapContainer>
     );
 }
