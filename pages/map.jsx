@@ -12,7 +12,7 @@ export default function Home() {
     );
 
     return (
-        <Layout pageName="Carte">
+        <Layout pageName="Carte" leaflet>
             <Box sx={{
                 display: "flex",
                 flexGrow: 1,
