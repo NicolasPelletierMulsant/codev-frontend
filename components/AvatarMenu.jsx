@@ -14,7 +14,7 @@ const logout = () => {
 }
 
 const AvatarMenuOptions = [
-    { text: "Profile", link: "#" },
+    { text: "Profile", link: "/profile" },
     { text: "Se déconnecter", link: '/', onClick: logout },
 ];
 
