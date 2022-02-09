@@ -16,7 +16,7 @@ import MailIcon from '@mui/icons-material/Mail';
 import Link from 'next/Link';
 
 const linkList = [
-    { text: "1 - Un", href: "/test" },
+    { text: "1 - Carte", href: "/map" },
     { text: "2 - Deux", href: "#" },
     { text: "3 - Trois", href: "#" }
 ]; 
