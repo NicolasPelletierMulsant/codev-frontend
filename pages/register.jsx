@@ -71,9 +71,33 @@ export default function Home() {
     }
 
     // Handle registration
-    const cookies = new Cookies();
-    cookies.set("connected", true);
-    Router.push('/');
+
+    // TODO: Util files to handle api requests?
+    fetch(process.env.NEXT_PUBLIC_API_URL + "/create-account", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: email,
+        name: username,
+        password: password,
+      }),
+    })
+    .then(response => {
+      if (response.status === 200) {
+        response.json().then(data => {
+          const token = data.access_token;
+          const cookies = new Cookies();
+          cookies.set("token", token);
+          Router.push('/');
+        });
+      } else {
+        console.log("Response status: ", response.status);
+        alert("!");
+      }
+    })
+    .catch(error => console.log('Error: ', error));
   };
 
 

@@ -27,9 +27,32 @@ export default function Home() {
     }
 
     // Handle connection
-    const cookies = new Cookies();
-    cookies.set("connected", true);
-    Router.push('/');
+  
+    // TODO: Util files to handle api requests?
+    fetch(process.env.NEXT_PUBLIC_API_URL + "/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: email,
+        password: password,
+      }),
+    })
+    .then(response => {
+      if (response.status === 200) {
+        response.json().then(data => {
+          const token = data.access_token;
+          const cookies = new Cookies();
+          cookies.set("token", token);
+          Router.push('/');
+        });
+      } else {
+        console.log("Response status: ", response.status);
+        alert("L'utilisateur n'existe pas");
+      }
+    })
+    .catch(error => console.log('Error: ', error));
   };
 
   return (
