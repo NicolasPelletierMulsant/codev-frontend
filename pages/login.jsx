@@ -18,7 +18,10 @@ export default function Home() {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
 
-    if (data.get('email') === "" || data.get('password') === "") {
+    const email = data.get("email");
+    const password = data.get("password");
+
+    if (!(email && password)) {
         alert("Veuillez remplir tous les champs");
         return;
     }
@@ -53,7 +56,7 @@ export default function Home() {
               required
               fullWidth
               id="email"
-              label="Email Address"
+              label="Adresse email"
               name="email"
               autoComplete="email"
               autoFocus
@@ -63,7 +66,7 @@ export default function Home() {
               required
               fullWidth
               name="password"
-              label="Password"
+              label="Mot de passe"
               type="password"
               id="password"
               autoComplete="current-password"
@@ -77,7 +80,7 @@ export default function Home() {
               Se connecter
             </Button>
             <Box sx={{ display: "flex", justifyContent: "center" }}>
-                <Link href="#" variant="body2">
+                <Link href="register" variant="body2">
                   Créer un compte
                 </Link>
             </Box>
