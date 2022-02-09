@@ -1,43 +1,10 @@
 import * as React from 'react'
 import { MapContainer, TileLayer, Marker, Popup, Tooltip } from 'react-leaflet'
-import Cookies from 'universal-cookie'
 import * as L from "leaflet"
 import Legend from './Legend'
-import Router from 'next/router';
-
-const getBatimentsData = async (batiments) => {
-    const cookies = new Cookies();
-
-    try {
-        const response = await fetch("https://magous.fr/baptiste/codev/codev/public/api/batiments", {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": "Bearer " + cookies.get("token")
-            },  
-        })
-        if (response.status == 200) {
-            const data = await response.json();
-            return data
-        } else {
-            console.log("Response status: ", response.status);
-            return null;
-        }
-    } catch(error) {
-        console.log("Error: ", error);
-    }
-};
-
-const energyClassToColor = {
-    A: "#008001",
-    B: "#5dcf0c",
-    C: "#80ff00",
-    D: "#ffff00",
-    E: "#ff9100",
-    F: "#ff6824",
-    G: "#ff0000",
-    N: "#AAAAAA",
-};
+import Router from 'next/router'
+import { getBatimentsData } from '../utils/api'
+import { energyClassToColor } from '../utils/variables'
 
 function getStyleFromEnergyClass(energyClass) {
     return `
@@ -92,7 +59,7 @@ export default function Map() {
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
-            {batimentsData && batimentsData.slice(0, 60).map((batiment, index) => (
+            {batimentsData && batimentsData.slice(0, 100).map((batiment, index) => (
                 <Marker key={index} position={[batiment.latitude, batiment.longitude]} icon={iconsColorMap[batiment.classe_consommation_energie]}
                     eventHandlers={{
                         click: event => onMarkerClick(event, batiment.id)
