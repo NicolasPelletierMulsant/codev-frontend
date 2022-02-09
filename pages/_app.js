@@ -1,4 +1,5 @@
 import { ThemeProvider, createTheme } from '@mui/material/styles';
+import "./styles.css"
 
 const theme = createTheme({
     palette: {
