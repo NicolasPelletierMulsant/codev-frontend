@@ -1,5 +1,5 @@
 import Layout from '../components/Layout.jsx'
-import Typography from '@mui/material/Typography';
+import Typography from '@mui/material/Typography'
 
 export default function Home() {
   return (
