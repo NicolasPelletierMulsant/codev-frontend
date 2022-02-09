@@ -18,7 +18,7 @@ export default function Layout(props) {
             <Sidebar>
             </Sidebar>
 
-            <Box component="main" sx={{ flexGrow: 1, paddingTop: "5rem", paddingLeft: "1rem" }}>
+            <Box component="main" sx={{ flexGrow: 1, paddingTop: "5rem", paddingLeft: "1rem", height: "80vh" }}>
                 {props.children}
             </Box>
         </Box>
