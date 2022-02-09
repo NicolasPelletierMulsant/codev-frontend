@@ -4,7 +4,7 @@ export default function middleware(req, ev) {
     const url = req.nextUrl.clone();
     const cookies = req.cookies;
 
-    if (!cookies.connected && (url.pathname !== "/login" || url.pathname !== "/register")) {
+    if (!cookies.token && (url.pathname !== "/login" || url.pathname !== "/register")) {
         if (url.pathname === "/register") {
             return NextResponse.rewrite(url.origin + "/register")
         } else {

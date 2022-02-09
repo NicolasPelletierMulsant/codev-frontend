@@ -10,7 +10,7 @@ import Cookies from 'universal-cookie';
 
 const logout = () => {
     const cookies = new Cookies();
-    cookies.remove('connected');
+    cookies.remove('token');
 }
 
 const AvatarMenuOptions = [
