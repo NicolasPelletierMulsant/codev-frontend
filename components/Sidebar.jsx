@@ -9,7 +9,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 
 // Temp import
-import InboxIcon from '@mui/icons-material/MoveToInbox';
+import BarChartIcon from '@mui/icons-material/BarChart';
 import MapIcon from '@mui/icons-material/Map';
 import MapsHomeWorkIcon from '@mui/icons-material/MapsHomeWork';
 
@@ -19,7 +19,7 @@ import Link from 'next/Link';
 const linkList = [
     { icon: MapIcon, text: "Carte Energie", href: "/map" },
     { icon: MapsHomeWorkIcon, text: "Bâtiments", href: "/batiments" },
-    { icon: InboxIcon, text: "3 - Trois", href: "#" }
+    { icon: BarChartIcon, text: "Statistiques", href: "/stats" }
 ]; 
 
 export const sidebarWidth = 210;
