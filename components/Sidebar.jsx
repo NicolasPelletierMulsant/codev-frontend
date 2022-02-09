@@ -10,18 +10,19 @@ import ListItemText from '@mui/material/ListItemText';
 
 // Temp import
 import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
+import MapIcon from '@mui/icons-material/Map';
+import MapsHomeWorkIcon from '@mui/icons-material/MapsHomeWork';
 
 // import Link from '@mui/material/Link';
 import Link from 'next/Link';
 
 const linkList = [
-    { text: "1 - Carte", href: "/map" },
-    { text: "2 - Deux", href: "#" },
-    { text: "3 - Trois", href: "#" }
+    { icon: MapIcon, text: "Carte Energie", href: "/map" },
+    { icon: MapsHomeWorkIcon, text: "Bâtiments", href: "/batiments" },
+    { icon: InboxIcon, text: "3 - Trois", href: "#" }
 ]; 
 
-export const sidebarWidth = 180;
+export const sidebarWidth = 210;
 
 export function Sidebar(props) {
   return (
@@ -47,7 +48,7 @@ export function Sidebar(props) {
                     justifyContent: "center",
                     padding: "10px"
                     }}>
-                    <img src="./img/site_logo.png" alt="logo" width="42px" height="42px"/>
+                    <img src="/img/site_logo.png" alt="logo" width="42px" height="42px"/>
                     <Typography variant="h5" sx={{ marginLeft: "10px" }}>Codev</Typography>
                 </Box>
             </Link>
@@ -60,7 +61,7 @@ export function Sidebar(props) {
                 <Link href={object.href} key={index} sx={{ textDecoration: "none" }}>
                     <ListItem button>
                         <ListItemIcon>
-                            {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                            {React.createElement(object.icon)}
                         </ListItemIcon>
                         <ListItemText primary={object.text} />
                     </ListItem>

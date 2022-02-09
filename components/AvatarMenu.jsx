@@ -27,7 +27,7 @@ export default function AvatarMenu(props) {
     return (
         <Box>
             <IconButton onClick={handleOpenAvatarMenu}>
-                <Avatar src="./img/avatar_test.jpg" />
+                <Avatar src="/img/avatar_test.jpg" />
             </IconButton>
             <Menu anchorEl={anchorElAvatar} open={Boolean(anchorElAvatar)} onClose={handleCloseAvatarMenu}>
                 {AvatarMenuOptions.map((option) => {
