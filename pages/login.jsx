@@ -29,7 +29,7 @@ export default function Home() {
     // Handle connection
   
     // TODO: Util files to handle api requests?
-    fetch(process.env.API_URL + "/login", {
+    fetch("https://magous.fr/baptiste/codev/codev/public/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
