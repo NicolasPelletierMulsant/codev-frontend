@@ -64,7 +64,7 @@ export default function Map(props) {
                         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                     />
-                    {batimentsData.slice(0, 1000).map((batiment, index) => (
+                    {batimentsData.slice(1, 1000).map((batiment, index) => (
                         <Marker key={index} 
                             position={[batiment.latitude, batiment.longitude]} 
                             icon={props.showEnergy ? iconsColorMap[batiment.classe_consommation_energie] : iconsColorMap[batiment.classe_estimation_ges]}
