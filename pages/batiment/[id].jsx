@@ -80,7 +80,7 @@ export default function Home() {
                     display: "flex", 
                     justifyContent: "center", 
                     alignItems: "center" ,
-                    minWidth: "30rem",
+                    minWidth: "40rem",
                     height: "100%",
                 }}>
                     <CardContent sx={{ 

@@ -3,7 +3,7 @@ import Layout from "../components/Layout";
 import Box from "@mui/material/Box";
 import * as React from 'react';
 import { getBatimentsData } from "../utils/api";
-
+import ProgressCircle from "../components/ProgressCircle";
 
 export default function Home() {
 
@@ -38,7 +38,7 @@ export default function Home() {
         setRows(rows);
 
         const columns = [
-            { field: 'geo_adresse', headerName: 'Géo adresse', width: 200 },
+            { field: 'geo_adresse', headerName: 'Géo adresse', width: 400 },
             { field: 'geo_score', headerName: 'Géo score', width: 120 },
             { field: 'classe_consommation_energie', headerName: 'Classe énergie', width: 170 },
             { field: 'consommation_energie', headerName: 'Consommation énergie', width: 200 },
@@ -65,11 +65,12 @@ export default function Home() {
                 display: "flex",
                 height: "90vh",
             }}>
-                {(rows && columns && 
+                {(!rows.length || !columns.length) && <ProgressCircle sx={{ width: "100%" }} />}
+                {rows.length !== 0 && columns.length !== 0 && 
                     <DataGrid rows={rows} columns={columns} sx={{
                         color: "black",
                     }}/>
-                )}
+                }
             </Box>
         </Layout>
     )

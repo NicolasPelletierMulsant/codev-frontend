@@ -2,15 +2,22 @@ import * as React from 'react';
 import Layout from '../components/Layout.jsx'
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
-import { Typography } from '@mui/material';
 import CardContent from '@mui/material/CardContent';
 import Avatar from '@mui/material/Avatar';
 import TextField from '@mui/material/TextField';
-
-const username = "JohnDoe";
-const email = "test@gmail.com";
+import { getUserInfo } from '../utils/api.js';
 
 export default function Home() {
+
+    const [username, setUsername] = React.useState("");
+    const [email, setEmail] = React.useState("");
+
+    React.useEffect(async () => {
+        const data = await getUserInfo();
+        setUsername(data.name);
+        setEmail(data.email);
+    }, []);
+
     return (
         <Layout pageName="Profile">
             <Box sx={{ 
@@ -44,7 +51,7 @@ export default function Home() {
                             <TextField
                                 className="outlined-read-only-input"
                                 label="Nom d'utilisateur"
-                                defaultValue={username}
+                                value={username}
                                 InputProps={{
                                     readOnly: true,
                                 }}
@@ -52,7 +59,7 @@ export default function Home() {
                             <TextField
                                 className="outlined-read-only-input"
                                 label="Adresse email"
-                                defaultValue={email}
+                                value={email}
                                 InputProps={{
                                     readOnly: true,
                                 }}

@@ -1,7 +1,7 @@
 import L from "leaflet"
 import * as React from "react"
 
-export default function Legend({ map, data }) {
+export default function Legend({ map, data, showEnergy }) {
   React.useEffect(() => {
     if (map) {
       const legend = L.control({ position: "bottomright" });
@@ -13,7 +13,7 @@ export default function Legend({ map, data }) {
         for (const [energyClass, color] of Object.entries(data)) {
             spans.push(`<span><i style="background: ${color}"></i> ${energyClass}</span>`);
         }
-        div.innerHTML = "<div class='legend-title'>Conso énergétique</div>\n";
+        div.innerHTML = "<div class='legend-title'>" + (showEnergy ? "Consommation énergétique" : "Estimation GES") + "</div>\n";
         div.innerHTML += spans.join("");
 
         return div;

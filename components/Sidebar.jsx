@@ -17,9 +17,9 @@ import MapsHomeWorkIcon from '@mui/icons-material/MapsHomeWork';
 import Link from 'next/Link';
 
 const linkList = [
-    { icon: MapIcon, text: "Carte Energie", href: "/map" },
+    { icon: MapIcon, text: "Carte", href: "/map" },
+    { icon: BarChartIcon, text: "Statistiques", href: "/stats" },
     { icon: MapsHomeWorkIcon, text: "Bâtiments", href: "/batiments" },
-    { icon: BarChartIcon, text: "Statistiques", href: "/stats" }
 ]; 
 
 export const sidebarWidth = 210;

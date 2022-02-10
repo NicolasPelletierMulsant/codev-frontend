@@ -5,6 +5,8 @@ import Legend from './Legend'
 import Router from 'next/router'
 import { getBatimentsData } from '../utils/api'
 import { energyClassToColor } from '../utils/variables'
+import ProgressCircle from './ProgressCircle'
+import Box from '@mui/material/Box'
 
 function getStyleFromEnergyClass(energyClass) {
     return `
@@ -36,7 +38,7 @@ const iconsColorMap = Object.keys(energyClassToColor).reduce((acc, energyClass) 
     return acc;
 }, {});
 
-export default function Map() {
+export default function Map(props) {
 
     const [batimentsData, setBatimentsData] = React.useState(null);
     const [map, setMap] = React.useState(null);
@@ -54,22 +56,29 @@ export default function Map() {
     };
 
     return (
-        <MapContainer center={[48.52, 2.19]} zoom={5} style={{ height: "100%", width: "90%" }} whenCreated={setMap}>
-            <TileLayer
-                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            />
-            {batimentsData && batimentsData.slice(0, 100).map((batiment, index) => (
-                <Marker key={index} position={[batiment.latitude, batiment.longitude]} icon={iconsColorMap[batiment.classe_consommation_energie]}
-                    eventHandlers={{
-                        click: event => onMarkerClick(event, batiment.id)
-                    }}>
-                    <Tooltip>
-                        {batiment.geo_adresse}
-                    </Tooltip>
-                </Marker>
-            ))}
-            <Legend map={map} data={energyClassToColor} />
-        </MapContainer>
+        <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100%", width: "100%" }}>
+            {!batimentsData 
+                ? <ProgressCircle />
+                : <MapContainer center={[47, 2.19]} zoom={6} style={{ height: "100%", width: "90%" }} whenCreated={setMap}>
+                    <TileLayer
+                        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                    />
+                    {batimentsData.slice(0, 100).map((batiment, index) => (
+                        <Marker key={index} 
+                            position={[batiment.latitude, batiment.longitude]} 
+                            icon={props.showEnergy ? iconsColorMap[batiment.classe_consommation_energie] : iconsColorMap[batiment.classe_estimation_ges]}
+                            eventHandlers={{
+                                click: event => onMarkerClick(event, batiment.id)
+                            }}>
+                            <Tooltip>
+                                {batiment.geo_adresse}
+                            </Tooltip>
+                        </Marker>
+                    ))}
+                    <Legend map={map} data={energyClassToColor} showEnergy={props.showEnergy} />
+                </MapContainer>
+            }
+        </Box>
     );
 }

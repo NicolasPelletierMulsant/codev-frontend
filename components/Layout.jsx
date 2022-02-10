@@ -5,7 +5,7 @@ import { Sidebar, sidebarWidth } from '../components/Sidebar.jsx'
 
 export default function Layout(props) {
     return (
-        <Box display={{ display: "flex" }}>
+        <Box display={Object.assign({}, { display: "flex" }, props.sx)}>
             <Head>
                 <title>Projet Codev</title>
                 <link rel="icon" href="./img/site_logo.png" />
