@@ -73,7 +73,7 @@ export default function Home() {
     // Handle registration
 
     // TODO: Util files to handle api requests?
-    fetch(process.env.NEXT_PUBLIC_API_URL + "/create-account", {
+    fetch(process.env.API_URL + "/create-account", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

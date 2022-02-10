@@ -29,7 +29,7 @@ export default function Home() {
     // Handle connection
   
     // TODO: Util files to handle api requests?
-    fetch(process.env.NEXT_PUBLIC_API_URL + "/login", {
+    fetch(process.env.API_URL + "/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
