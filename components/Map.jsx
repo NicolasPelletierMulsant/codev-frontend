@@ -7,6 +7,8 @@ import { getBatimentsData } from '../utils/api'
 import { energyClassToColor } from '../utils/variables'
 import ProgressCircle from './ProgressCircle'
 import Box from '@mui/material/Box'
+import TextField from '@mui/material/TextField'
+import Paper from '@mui/material/Paper'
 
 function getStyleFromEnergyClass(energyClass) {
     return `
@@ -41,6 +43,7 @@ const iconsColorMap = Object.keys(energyClassToColor).reduce((acc, energyClass) 
 export default function Map(props) {
 
     const [batimentsData, setBatimentsData] = React.useState(null);
+    const [nbBatiments, setNbBatiments] = React.useState(500);
     const [map, setMap] = React.useState(null);
 
     React.useEffect(async () => {
@@ -56,28 +59,41 @@ export default function Map(props) {
     };
 
     return (
-        <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100%", width: "100%" }}>
+        <Box sx={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", height: "100%", width: "100%" }}>
             {!batimentsData 
                 ? <ProgressCircle />
-                : <MapContainer center={[47, 2.19]} zoom={6} style={{ height: "100%", width: "90%" }} whenCreated={setMap}>
-                    <TileLayer
-                        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                    />
-                    {batimentsData.slice(1, 700).map((batiment, index) => (
-                        <Marker key={index} 
-                            position={[batiment.latitude, batiment.longitude]} 
-                            icon={props.showEnergy ? iconsColorMap[batiment.classe_consommation_energie] : iconsColorMap[batiment.classe_estimation_ges]}
-                            eventHandlers={{
-                                click: event => onMarkerClick(event, batiment.id)
-                            }}>
-                            <Tooltip>
-                                {batiment.geo_adresse}
-                            </Tooltip>
-                        </Marker>
-                    ))}
-                    <Legend map={map} data={energyClassToColor} showEnergy={props.showEnergy} />
-                </MapContainer>
+                : <React.Fragment>
+                    <MapContainer center={[47, 2.19]} zoom={6} style={{ height: "100%", width: "90%" }} whenCreated={setMap}>
+                        <TileLayer
+                            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                        />
+                        {batimentsData.slice(1, nbBatiments).map((batiment, index) => (
+                            <Marker key={index} 
+                                position={[batiment.latitude, batiment.longitude]} 
+                                icon={props.showEnergy ? iconsColorMap[batiment.classe_consommation_energie] : iconsColorMap[batiment.classe_estimation_ges]}
+                                eventHandlers={{
+                                    click: event => onMarkerClick(event, batiment.id)
+                                }}>
+                                <Tooltip>
+                                    {batiment.geo_adresse}
+                                </Tooltip>
+                            </Marker>
+                        ))}
+                        <Legend map={map} data={energyClassToColor} showEnergy={props.showEnergy} />
+                    </MapContainer>
+                    <Paper sx={{ 
+                        marginTop: "30px", 
+                        backgroundColor: "#90caf9",
+                        "& *": {
+                            color: "black !important"
+                        }
+                    }}>
+                        <TextField id="nbBatiments" label="Nombre de bâtiments" variant="filled" type="number" 
+                            value={nbBatiments} onChange={(e) => setNbBatiments(Math.min(+e.target.value, 1500))}
+                        />
+                    </Paper>
+                </React.Fragment>
             }
         </Box>
     );
