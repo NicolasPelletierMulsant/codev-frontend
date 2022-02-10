@@ -14,7 +14,7 @@ import MapIcon from '@mui/icons-material/Map';
 import MapsHomeWorkIcon from '@mui/icons-material/MapsHomeWork';
 
 // import Link from '@mui/material/Link';
-import Link from 'next/Link';
+import Link from 'next/link';
 
 const linkList = [
     { icon: MapIcon, text: "Carte", href: "/map" },
